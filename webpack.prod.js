@@ -39,7 +39,7 @@ module.exports = {
         "./App": "./src/App",
       },
       remotes: {
-        SHELL: "https://react-mfe-shell.web.app/remoteEntry.js",
+        SHELL: "SHELL@https://react-mfe-shell.web.app/remoteEntry.js",
       },
       shared: [
         {
