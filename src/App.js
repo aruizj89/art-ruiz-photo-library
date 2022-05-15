@@ -9,12 +9,7 @@ const App = () => {
       <ImageList cols={3} gap={24} sx={{ m: 0 }} variant="masonry">
         {photos.map((photo) => (
           <ImageListItem key={photo.id} sx={{ width: "100%" }}>
-            <LazyImage
-              alt={photo.alt}
-              src={photo.urls.full}
-              style={{ width: "100%" }}
-              thumb={photo.urls.thumb}
-            />
+            <LazyImage photo={photo} />
           </ImageListItem>
         ))}
       </ImageList>
