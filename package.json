@@ -1,0 +1,18 @@
+{
+  "name": "art-ruiz-photo-library",
+  "version": "1.0.0",
+  "description": "Project container for front-end & api",
+  "scripts": {
+    "start": "pushd front-end && yarn start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aruizj89/art-ruiz-photo-library.git"
+  },
+  "author": "Art Ruiz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aruizj89/art-ruiz-photo-library/issues"
+  },
+  "homepage": "https://github.com/aruizj89/art-ruiz-photo-library#readme"
+}
