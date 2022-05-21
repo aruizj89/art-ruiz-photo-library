@@ -3,13 +3,16 @@ import * as cors from "cors";
 import * as express from "express";
 import { unsplash } from "./unsplash";
 
+const prodOnly = process.env.NODE_ENV === "production";
+const whitelist = [
+  "https://react-mfe-shell.web.app",
+  "https://art-ruiz-photo-library.web.app",
+];
+
 const app = express();
 app.use(
   cors({
-    origin: [
-      "https://react-mfe-shell.web.app",
-      "https://art-ruiz-photo-library.web.app",
-    ],
+    origin: prodOnly ? whitelist : "*",
   })
 );
 

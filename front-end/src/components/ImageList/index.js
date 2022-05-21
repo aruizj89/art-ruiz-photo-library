@@ -1,11 +1,8 @@
-import {
-  Container,
-  ImageList as MuiImageList,
-  ImageListItem,
-} from "@mui/material";
+import { Masonry } from "@mui/lab";
+import { Container } from "@mui/material";
 import React, { useMemo } from "react";
 import { useShellContext } from "SHELL/ShellContext";
-import { LazyImage } from "./Image";
+import { LazyImage } from "./LazyImage";
 
 export const ImageList = ({ photos }) => {
   const { smallViewport } = useShellContext();
@@ -14,13 +11,11 @@ export const ImageList = ({ photos }) => {
 
   return (
     <Container sx={{ pt: 3 }}>
-      <MuiImageList cols={cols} gap={24} sx={{ m: 0 }} variant="masonry">
+      <Masonry columns={cols} spacing={3}>
         {photos.map((photo) => (
-          <ImageListItem key={photo.id} sx={{ width: "100%" }}>
-            <LazyImage photo={photo} />
-          </ImageListItem>
+          <LazyImage key={photo.id} photo={photo} />
         ))}
-      </MuiImageList>
+      </Masonry>
     </Container>
   );
 };
