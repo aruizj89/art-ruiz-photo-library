@@ -1,22 +1,35 @@
 import styled from "@emotion/styled";
+import { Skeleton } from "@mui/material";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 export const LazyImage = ({ photo }) => {
-  const { height, width, urls } = photo;
-  const [loaded, setLoaded] = useState(false);
+  const {
+    height,
+    width,
+    urls: { full, thumb },
+  } = photo;
   const [renderHeight, setRenderHeight] = useState(0);
+  const [fullUrl, setFullUrl] = useState("");
+  const [thumbUrl, setThumbUrl] = useState("");
 
   useEffect(() => {
-    const { full } = urls;
-
     const fullImage = new Image();
 
     fullImage.src = full;
 
-    fullImage.onload = () => setLoaded(true);
-  }, [setLoaded, urls]);
+    fullImage.onload = () => setFullUrl(full);
+  }, [full, setFullUrl]);
 
-  const url = useMemo(() => (loaded ? urls.full : urls.thumb), [loaded, urls]);
+  useEffect(() => {
+    const thumbImage = new Image();
+
+    thumbImage.src = thumb;
+
+    thumbImage.onload = () => setThumbUrl(thumb);
+  }, [thumb, setThumbUrl]);
+
+  const url = useMemo(() => fullUrl || thumbUrl || "", [fullUrl, thumbUrl]);
+  const loading = useMemo(() => !fullUrl, [fullUrl]);
 
   const setHeight = useCallback(
     (node) => {
@@ -27,12 +40,15 @@ export const LazyImage = ({ photo }) => {
   );
 
   return (
-    <Images
-      blurred={!loaded}
-      ref={setHeight}
-      height={renderHeight}
-      url={`url("${url}")`}
-    />
+    <Images ref={setHeight} height={renderHeight} url={`url("${url}")`}>
+      {loading && (
+        <Skeleton
+          sx={{ height: renderHeight, borderRadius: 2 }}
+          animation="wave"
+          variant="rectangular"
+        />
+      )}
+    </Images>
   );
 };
 
@@ -40,6 +56,5 @@ const Images = styled.div`
   background-image: ${({ url }) => url};
   background-size: cover;
   border-radius: 8px;
-  ${({ blurred }) => blurred && "filter: blur(4px);"}
   height: ${({ height }) => height}px;
 `;
