@@ -1,7 +1,7 @@
-import { Random } from "unsplash-js/dist/methods/photos/types";
+import { Basic, Random } from "unsplash-js/dist/methods/photos/types";
 import { Image } from "../models/Image.model";
 
-export const transformRandom = (random: Random): Image => {
+export const transformToImage = (random: Random | Basic): Image => {
   const {
     id,
     height,
